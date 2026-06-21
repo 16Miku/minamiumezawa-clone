@@ -4,72 +4,15 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import SocialLinks from "@/components/SocialLinks";
 import { FadeIn } from "@/components/animations";
+import HeroSlider from "@/components/HeroSlider";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#0a0a0a]">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Background with subtle animation */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-[#0a0a0a]"
-        />
-
-        {/* Content */}
-        <div className="relative z-10 text-center px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-[0.3em] mb-6"
-          >
-            MINAMI UMEZAWA
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-white/60 text-lg md:text-xl tracking-[0.5em] mb-4"
-          >
-            OFFICIAL WEBSITE
-          </motion.p>
-
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="w-24 h-px bg-white/30 mx-auto mb-8 origin-center"
-          />
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <SocialLinks />
-          </motion.div>
-        </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="w-px h-16 bg-gradient-to-b from-transparent via-white/50 to-transparent"
-          />
-        </motion.div>
-      </section>
+      {/* Hero Slider */}
+      <HeroSlider />
 
       {/* News Preview Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -201,39 +144,51 @@ export default function Home() {
 
       {/* Profile Preview */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto">
           <FadeIn>
-            <h2 className="text-3xl md:text-4xl font-light text-white tracking-widest mb-12">
+            <h2 className="text-3xl md:text-4xl font-light text-white tracking-widest mb-12 text-center">
               PROFILE
             </h2>
           </FadeIn>
 
-          <FadeIn delay={0.2}>
-            <div className="max-w-2xl mx-auto">
-              <h3 className="text-2xl text-white mb-4 tracking-wider">
-                梅澤 美波
-                <span className="block text-lg text-white/60 mt-2 tracking-normal">
-                  うめざわ みなみ
-                </span>
-              </h3>
-              <div className="grid grid-cols-2 gap-4 text-sm text-white/60 mt-8">
-                <div className="text-right">生年月日</div>
-                <div className="text-left">1999年1月6日</div>
-                <div className="text-right">血液型</div>
-                <div className="text-left">A型</div>
-                <div className="text-right">星座</div>
-                <div className="text-left">やぎ座</div>
-                <div className="text-right">身長</div>
-                <div className="text-left">170cm</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <FadeIn delay={0.1}>
+              <div className="relative w-full aspect-[2/3] overflow-hidden rounded-lg">
+                <img
+                  src="/images/profile/profile.jpg"
+                  alt="梅澤美波"
+                  className="w-full h-full object-cover object-top"
+                />
               </div>
-              <a
-                href="/profile"
-                className="inline-block mt-8 text-white/60 hover:text-white text-sm tracking-widest transition-colors border border-white/20 px-6 py-3 rounded hover:border-white/40"
-              >
-                VIEW ALL →
-              </a>
-            </div>
-          </FadeIn>
+            </FadeIn>
+
+            <FadeIn delay={0.2}>
+              <div className="text-center md:text-left">
+                <h3 className="text-2xl text-white mb-4 tracking-wider">
+                  梅澤 美波
+                  <span className="block text-lg text-white/60 mt-2 tracking-normal">
+                    うめざわ みなみ
+                  </span>
+                </h3>
+                <div className="grid grid-cols-2 gap-4 text-sm text-white/60 mt-8">
+                  <div className="text-right">生年月日</div>
+                  <div className="text-left">1999年1月6日</div>
+                  <div className="text-right">血液型</div>
+                  <div className="text-left">A型</div>
+                  <div className="text-right">星座</div>
+                  <div className="text-left">やぎ座</div>
+                  <div className="text-right">身長</div>
+                  <div className="text-left">170cm</div>
+                </div>
+                <a
+                  href="/profile"
+                  className="inline-block mt-8 text-white/60 hover:text-white text-sm tracking-widest transition-colors border border-white/20 px-6 py-3 rounded hover:border-white/40"
+                >
+                  VIEW ALL →
+                </a>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 

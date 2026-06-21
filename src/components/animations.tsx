@@ -66,7 +66,7 @@ export function StaggerItem({ children }: { children: React.ReactNode }) {
         },
       }}
     >
-      Regenerate         {children}
+      {children}
     </motion.div>
   );
 }
