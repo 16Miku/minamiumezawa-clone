@@ -6,13 +6,13 @@ import { FadeIn } from "@/components/animations";
 
 export default function ProfilePage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-light text-white tracking-widest mb-16">
+            <h1 className="text-4xl md:text-5xl font-light text-foreground tracking-widest mb-16">
               PROFILE
             </h1>
           </FadeIn>
@@ -36,10 +36,10 @@ export default function ProfilePage() {
 
             <FadeIn delay={0.2}>
               <div>
-                <h2 className="text-3xl text-white mb-2 tracking-wider">
+                <h2 className="text-3xl text-foreground mb-2 tracking-wider">
                   梅澤 美波
                 </h2>
-                <p className="text-white/60 text-lg mb-8">
+                <p className="text-muted-foreground text-lg mb-8">
                   うめざわ みなみ
                 </p>
 
@@ -52,21 +52,21 @@ export default function ProfilePage() {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="flex border-b border-white/10 pb-4"
+                      className="flex border-b border-border pb-4"
                     >
-                      <div className="w-24 text-white/40 text-sm">
+                      <div className="w-24 text-muted-foreground text-sm">
                         {item.label}
                       </div>
-                      <div className="flex-1 text-white">{item.value}</div>
+                      <div className="flex-1 text-foreground">{item.value}</div>
                     </div>
                   ))}
                 </div>
 
-                <div className="bg-white/5 p-8 rounded-lg mt-8">
-                  <h3 className="text-white text-lg mb-6 tracking-wider">
+                <div className="bg-card p-8 rounded-lg mt-8">
+                  <h3 className="text-foreground text-lg mb-6 tracking-wider">
                     BIOGRAPHY
                   </h3>
-                  <div className="space-y-4 text-white/60 text-sm leading-relaxed">
+                  <div className="space-y-4 text-muted-foreground text-sm leading-relaxed">
                     <p>
                       乃木坂46のメンバーとして活動後、2026年に卒業。
                     </p>
@@ -78,7 +78,7 @@ export default function ProfilePage() {
                     </p>
                   </div>
 
-                  <h3 className="text-white text-lg mb-6 mt-12 tracking-wider">
+                  <h3 className="text-foreground text-lg mb-6 mt-12 tracking-wider">
                     OFFICIAL LINKS
                   </h3>
                   <div className="space-y-3">
@@ -91,7 +91,7 @@ export default function ProfilePage() {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block text-white/60 hover:text-white text-sm transition-colors"
+                        className="block text-muted-foreground hover:text-foreground text-sm transition-colors"
                       >
                         {link.label} →
                       </a>

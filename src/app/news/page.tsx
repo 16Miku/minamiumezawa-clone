@@ -26,13 +26,13 @@ const newsItems = [
 
 export default function NewsPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-light text-white tracking-widest mb-16">
+            <h1 className="text-4xl md:text-5xl font-light text-foreground tracking-widest mb-16">
               NEWS
             </h1>
           </FadeIn>
@@ -40,21 +40,21 @@ export default function NewsPage() {
           <div className="space-y-0">
             {newsItems.map((news, index) => (
               <FadeIn key={index} delay={index * 0.1}>
-                <article className="border-b border-white/10 py-8 group cursor-pointer">
+                <article className="border-b border-border py-8 group cursor-pointer">
                   <div className="flex flex-col md:flex-row md:items-start gap-4">
                     <div className="flex items-center gap-4 text-sm">
-                      <span className="text-white/40 tracking-wider">
+                      <span className="text-muted-foreground tracking-wider">
                         {news.date}
                       </span>
-                      <span className="text-xs px-2 py-1 border border-white/20 rounded text-white/50">
+                      <span className="text-xs px-2 py-1 border border-border rounded text-muted-foreground">
                         {news.category}
                       </span>
                     </div>
                     <div className="flex-1">
-                      <h2 className="text-lg text-white/80 group-hover:text-white transition-colors mb-2">
+                      <h2 className="text-lg text-foreground/80 group-hover:text-foreground transition-colors mb-2">
                         {news.title}
                       </h2>
-                      <p className="text-white/40 text-sm leading-relaxed">
+                      <p className="text-muted-foreground text-sm leading-relaxed">
                         {news.content}
                       </p>
                     </div>

@@ -36,7 +36,7 @@ const works = [
   },
   {
     category: "BOOK",
-    items: [{ title: "2nd写真集「透明な覚悟」", detail: "（上皮>崩解（2026年、光文社）" }],
+    items: [{ title: "2nd写真集「透明な覚悟」", detail: "（2026年、光文社）" }],
   },
 ];
 
@@ -47,13 +47,13 @@ export default function WorksPage() {
     activeCategory === "ALL" ? works : works.filter((w) => w.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <div className="min-h-screen bg-background">
       <Navbar />
 
       <main className="pt-24 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <FadeIn>
-            <h1 className="text-4xl md:text-5xl font-light text-white tracking-widest mb-16">
+            <h1 className="text-4xl md:text-5xl font-light text-foreground tracking-widest mb-16">
               WORKS
             </h1>
           </FadeIn>
@@ -66,8 +66,8 @@ export default function WorksPage() {
                   onClick={() => setActiveCategory(category)}
                   className={`px-4 py-2 text-sm tracking-wider rounded transition-colors ${
                     activeCategory === category
-                      ? "bg-white text-black"
-                      : "bg-white/5 text-white/60 hover:bg-white/10 hover:text-white"
+                      ? "bg-foreground text-background"
+                      : "bg-card text-muted-foreground hover:bg-card-hover hover:text-foreground"
                   }`}
                 >
                   {category}
@@ -80,17 +80,17 @@ export default function WorksPage() {
             {filteredWorks.map((work, workIndex) => (
               <FadeIn key={work.category} delay={0.2 + workIndex * 0.1}>
                 <div id={work.category.toLowerCase()}>
-                  <h2 className="text-white/40 text-sm tracking-widest mb-6">
+                  <h2 className="text-muted-foreground text-sm tracking-widest mb-6">
                     {work.category}
                   </h2>
                   <div className="space-y-4">
                     {work.items.map((item, index) => (
                       <div
                         key={index}
-                        className="bg-white/5 hover:bg-white/10 p-6 rounded-lg transition-colors"
+                        className="bg-card hover:bg-card-hover p-6 rounded-lg transition-colors"
                       >
-                        <h3 className="text-white text-lg mb-2">{item.title}</h3>
-                        <p className="text-white/50 text-sm">{item.detail}</p>
+                        <h3 className="text-foreground text-lg mb-2">{item.title}</h3>
+                        <p className="text-muted-foreground text-sm">{item.detail}</p>
                       </div>
                     ))}
                   </div>

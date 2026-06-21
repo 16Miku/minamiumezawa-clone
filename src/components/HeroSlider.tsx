@@ -109,10 +109,10 @@ export default function HeroSlider({ autoPlayInterval = 4000 }: HeroSliderProps)
         </motion.div>
       </AnimatePresence>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-[#0a0a0a] pointer-events-none" />
+      {/* Gradient Overlay - 使用 CSS 变量实现主题感知 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background pointer-events-none" />
 
-      {/* Title Overlay */}
+      {/* Title Overlay - 文字始终为白色以确保在图片上可读 */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <div className="text-center px-4">
           <motion.h1

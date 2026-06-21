@@ -26,14 +26,14 @@ const socialLinks = [
 export default function SocialLinks() {
   return (
     <div className="flex items-center space-x-4">
-      <span className="text-white/50 text-xs tracking-widest">FOLLOW ME</span>
+      <span className="text-muted-foreground text-xs tracking-widest">FOLLOW ME</span>
       {socialLinks.map((link) => (
         <Link
           key={link.href}
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white/50 hover:text-white transition-colors duration-300"
+          className="text-muted-foreground hover:text-foreground transition-colors duration-300"
           aria-label={link.label}
         >
           {link.icon}
