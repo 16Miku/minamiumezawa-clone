@@ -31,56 +31,46 @@ interface HeroSliderProps {
   autoPlayInterval?: number;
 }
 
-export default function HeroSlider({ autoPlayInterval = 4000 }: HeroSliderProps) {
+export default function HeroSlider({ autoPlayInterval = 5000 }: HeroSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const [direction, setDirection] = useState(1);
 
   const goToNext = useCallback(() => {
-    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % slides.length);
   }, []);
 
-  const goToPrev = useCallback(() => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
-  }, []);
-
   useEffect(() => {
-    if (isPaused) return;
     const timer = setInterval(goToNext, autoPlayInterval);
     return () => clearInterval(timer);
-  }, [isPaused, autoPlayInterval, goToNext]);
+  }, [autoPlayInterval, goToNext]);
 
   const variants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? "100%" : "-100%",
+    enter: {
       opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
+      scale: 1.05,
     },
-    exit: (dir: number) => ({
-      x: dir > 0 ? "-100%" : "100%",
+    center: {
+      opacity: 1,
+      scale: 1,
+    },
+    exit: {
       opacity: 0,
-    }),
+      scale: 1,
+    },
   };
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Slides */}
-      <AnimatePresence initial={false} custom={direction} mode="wait">
+      <AnimatePresence initial={false} mode="wait">
         <motion.div
           key={currentIndex}
-          custom={direction}
           variants={variants}
           initial="enter"
           animate="center"
           exit="exit"
           transition={{
-            x: { type: "tween", duration: 0.8, ease: "easeInOut" },
-            opacity: { duration: 0.5 },
+            opacity: { duration: 1.2, ease: "easeInOut" },
+            scale: { duration: 8, ease: "linear" },
           }}
           className="absolute inset-0"
         >
@@ -112,100 +102,64 @@ export default function HeroSlider({ autoPlayInterval = 4000 }: HeroSliderProps)
       {/* Gradient Overlay - 使用 CSS 变量实现主题感知 */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background pointer-events-none" />
 
-      {/* Title Overlay - 文字始终为白色以确保在图片上可读 */}
+      {/* Title Overlay - 优化字体布局 */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <div className="text-center px-4">
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            key={`title-${currentIndex}`}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-[0.3em] mb-4"
+            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
+            className="text-4xl md:text-6xl lg:text-7xl font-thin text-white tracking-[0.4em] mb-6"
+            style={{ fontWeight: 200 }}
           >
             MINAMI UMEZAWA
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            key={`subtitle-${currentIndex}`}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-white/70 text-lg md:text-xl tracking-[0.5em] font-light"
+            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+            className="text-white/80 text-sm md:text-base lg:text-lg tracking-[0.6em] font-light"
+            style={{ fontWeight: 300 }}
           >
             OFFICIAL WEBSITE
           </motion.p>
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={goToPrev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-white transition-colors p-2"
-        aria-label="Previous slide"
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        onClick={goToNext}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-white transition-colors p-2"
-        aria-label="Next slide"
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      {/* Pause/Play Button */}
-      <button
-        onClick={() => setIsPaused(!isPaused)}
-        className="absolute bottom-8 right-8 z-20 text-white/50 hover:text-white transition-colors"
-        aria-label={isPaused ? "Play slideshow" : "Pause slideshow"}
-      >
-        {isPaused ? (
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-          </svg>
-        )}
-      </button>
-
-      {/* Dots Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+      {/* Dots Indicator - 简化样式 */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1);
-              setCurrentIndex(index);
-            }}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            onClick={() => setCurrentIndex(index)}
+            className={`transition-all duration-500 ${
               index === currentIndex
-                ? "bg-white w-6"
-                : "bg-white/40 hover:bg-white/60"
+                ? "w-8 h-1.5 bg-white rounded-full"
+                : "w-1.5 h-1.5 bg-white/40 hover:bg-white/60 rounded-full"
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - 优化动画 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-8 left-8 z-20 hidden md:block"
       >
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
           className="flex flex-col items-center"
         >
-          <span className="text-white/40 text-xs tracking-widest mb-2 rotate-90 origin-center translate-x-4">
+          <span className="text-white/30 text-xs tracking-[0.3em] mb-2 rotate-90 origin-center translate-x-4">
             SCROLL
           </span>
-          <div className="w-px h-12 bg-gradient-to-b from-white/50 to-transparent" />
+          <div className="w-px h-16 bg-gradient-to-b from-white/40 to-transparent" />
         </motion.div>
       </motion.div>
     </div>

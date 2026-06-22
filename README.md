@@ -24,14 +24,14 @@
 
 ## ✨ 功能特性
 
-- **首页**：全屏 Hero 区域，轮播图，NEWS / SCHEDULE / PROFILE / WORKS 预览
+- **首页**：全屏 Hero 区域，优雅的淡入淡出轮播图，NEWS / SCHEDULE / PROFILE / WORKS 预览
 - **NEWS**：新闻列表和详情
 - **SCHEDULE**：日程日历查看
 - **PROFILE**：个人资料和简介
 - **WORKS**：作品分类展示（MODEL / STAGE / MOVIE / TV / BOOK）
 - **CONTACT**：联系方式
 - **响应式设计**：适配桌面端和移动端
-- **动画效果**：页面滚动淡入、导航栏过渡、轮播图等
+- **动画效果**：页面滚动淡入、导航栏过渡、轮播图淡入淡出 + Ken Burns 效果
 - **主题切换**：支持 Light/Dark 模式切换（通过导航栏右侧按钮）
 
 ---
@@ -124,7 +124,8 @@ src/
 | 主题切换功能 | 重写 `ThemeProvider` + `ThemeToggle` 组件，使用 Tailwind v4 `@theme inline` 映射 CSS 变量 |
 | 硬编码颜色值 | 全局替换为语义化类名（`text-foreground` / `bg-card` / `border-border` 等） |
 | 图片远程加载 | 配置 `next.config.ts` 的 `remotePatterns`，下载图片保存到 `public/` 目录 |
-| 轮播图动画 | Framer Motion `AnimatePresence` + CSS 过渡实现平滑切换 |
+| 轮播图动画优化 | 从滑动切换改为淡入淡出 + Ken Burns 效果（微妙缩放），更符合官网风格 |
+| 轮播图字体布局 | 优化字间距（tracking-[0.4em] / 0.6em）、字重（200/300）、字体大小，提升视觉品质 |
 | 移动端导航 | `AnimatePresence` + 动态高度动画实现展开/收起 |
 | Render 部署冷启动 | 了解 Free Plan 限制：15 分钟无流量休眠，首次访问需 30 秒冷启动 |
 
@@ -144,8 +145,13 @@ src/
 ### 学习收获
 1. **Tailwind CSS 4 的新特性**：`@theme inline` 的变量映射机制，直接替代了传统 `tailwind.config.ts`
 2. **Next.js App Router**：深刻理解 Server Components 和 Client Components 的适用场景
-3. **Framer Motion**：`whileInView` 实现滚动触发动画，`AnimatePresence` 实现页面过渡
-4. **Render 部署**：了解 Free / Starter / Pro 各等级的差异，以及在 CI/CD 中的最佳实践
+3. **Framer Motion 高级用法**：
+   - `whileInView` 实现滚动触发动画
+   - `AnimatePresence` 实现页面过渡
+   - Ken Burns 效果（opacity + scale 组合）营造电影感
+   - 动画时长和缓动函数的精细调控
+4. **日系网站设计美学**：极简主义、优雅的淡入淡出、精致的字间距、低调的交互元素
+5. **Render 部署**：了解 Free / Starter / Pro 各等级的差异，以及在 CI/CD 中的最佳实践
 
 ---
 

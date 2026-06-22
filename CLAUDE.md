@@ -59,6 +59,12 @@
 - 通用动画组件在 `src/components/animations.tsx`
 - `FadeIn` 组件：滚动进入视口时的淡入动画
 - `StaggerContainer` / `StaggerItem`：交错动画
+- **HeroSlider 轮播图动画**（2026.06.22 优化）：
+  - 淡入淡出效果（opacity: 0 → 1）
+  - Ken Burns 效果（scale: 1.05 → 1，时长 8 秒）
+  - 过渡时长：1.2 秒
+  - 轮播间隔：5 秒
+  - 字体布局：tracking-[0.4em] / 0.6em，fontWeight: 200 / 300
 
 ### 响应式断点
 - `sm:` - 640px
