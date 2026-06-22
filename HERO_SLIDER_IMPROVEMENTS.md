@@ -1,9 +1,60 @@
 # Hero Slider 轮播图优化记录
 
-## 优化日期
-2026年6月22日
+## 第二次优化（2026年6月22日）
 
-## 优化内容
+### 修复的问题
+**图片切换留白问题**：移除 `AnimatePresence` 的 `mode="wait"` 参数，实现图片交叉淡入淡出，避免切换时的空白间隙。
+
+### 优化内容
+
+#### 1. 修复切换留白
+- **问题**：使用 `mode="wait"` 导致旧图片完全退出后才显示新图片，中间有明显留白
+- **解决**：移除 `mode` 参数，使用默认的交叉淡入淡出效果
+- **效果**：新旧图片平滑过渡，无留白，观感更佳
+
+#### 2. 按照官网还原字体布局
+- **官网结构分析**：
+  ```html
+  <h1>MINAMI UMEZAWA<span>OFFICIAL WEBSITE</span></h1>
+  ```
+  - 主标题和副标题在同一个 h1 元素内
+  - 副标题使用 span 标签
+  
+- **我们的实现**：
+  ```tsx
+  <motion.h1 className="text-white">
+    <span className="block text-4xl md:text-6xl lg:text-7xl font-thin tracking-[0.35em] mb-4">
+      MINAMI UMEZAWA
+    </span>
+    <span className="block text-xs md:text-sm tracking-[0.5em] font-light opacity-80">
+      OFFICIAL WEBSITE
+    </span>
+  </motion.h1>
+  ```
+
+#### 3. 字体布局细节调整
+- **主标题**：
+  - 字间距调整为 `tracking-[0.35em]`（从 0.4em 微调）
+  - 保持字重 200
+  - 底部间距 `mb-4`
+  
+- **副标题**：
+  - 字号缩小为 `text-xs md:text-sm`（更接近官网）
+  - 字间距调整为 `tracking-[0.5em]`（从 0.6em 调整）
+  - 透明度 80%
+  - 字重 300
+
+#### 4. 结构优化
+- 将主副标题从分离的两个元素合并到一个 h1 内
+- 使用 span 标签分别包裹主标题和副标题
+- 移除了副标题的独立 motion 动画（统一在 h1 上）
+- 简化了动画逻辑
+
+---
+
+## 第一次优化（2026年6月22日）
+
+### 优化内容
 
 ### 1. 轮播切换效果改进
 - **原实现**：左右滑动切换 (x 轴移动)

@@ -61,7 +61,7 @@ export default function HeroSlider({ autoPlayInterval = 5000 }: HeroSliderProps)
   return (
     <div className="relative w-full h-screen overflow-hidden">
       {/* Slides */}
-      <AnimatePresence initial={false} mode="wait">
+      <AnimatePresence initial={false}>
         <motion.div
           key={currentIndex}
           variants={variants}
@@ -102,7 +102,7 @@ export default function HeroSlider({ autoPlayInterval = 5000 }: HeroSliderProps)
       {/* Gradient Overlay - 使用 CSS 变量实现主题感知 */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background pointer-events-none" />
 
-      {/* Title Overlay - 优化字体布局 */}
+      {/* Title Overlay - 按照官网结构优化 */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <div className="text-center px-4">
           <motion.h1
@@ -110,21 +110,15 @@ export default function HeroSlider({ autoPlayInterval = 5000 }: HeroSliderProps)
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
-            className="text-4xl md:text-6xl lg:text-7xl font-thin text-white tracking-[0.4em] mb-6"
-            style={{ fontWeight: 200 }}
+            className="text-white"
           >
-            MINAMI UMEZAWA
+            <span className="block text-4xl md:text-6xl lg:text-7xl font-thin tracking-[0.35em] mb-4" style={{ fontWeight: 200 }}>
+              MINAMI UMEZAWA
+            </span>
+            <span className="block text-xs md:text-sm tracking-[0.5em] font-light opacity-80" style={{ fontWeight: 300 }}>
+              OFFICIAL WEBSITE
+            </span>
           </motion.h1>
-          <motion.p
-            key={`subtitle-${currentIndex}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-            className="text-white/80 text-sm md:text-base lg:text-lg tracking-[0.6em] font-light"
-            style={{ fontWeight: 300 }}
-          >
-            OFFICIAL WEBSITE
-          </motion.p>
         </div>
       </div>
 
